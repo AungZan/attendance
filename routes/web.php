@@ -19,7 +19,13 @@ Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login.form');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login');
     Route::get('/', 'Admin\AdminController@index')->name('admin.home');
-    Route::get('/company', 'Admin\CompanyController@index')->name('admin.company');
+    Route::resource('/companies', 'Admin\CompanyController');
+    // Route::get('/company', 'Admin\CompanyController@index')->name('company.home');
+    // Route::get('/company/create', 'Admin\CompanyController@create')->name('company.create');
+    // Route::post('/company/create', 'Admin\CompanyController@create')->name('company.create');
+    // Route::get('/company/create', 'Admin\CompanyController@create')->name('company.create');
+    // Route::post('/company/create', 'Admin\CompanyController@create')->name('company.create');
+    // Route::post('/company/create', 'Admin\CompanyController@create')->name('company.create');
 });
 
 Route::prefix('master')->group(function() {

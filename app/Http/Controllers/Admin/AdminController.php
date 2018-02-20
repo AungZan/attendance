@@ -24,7 +24,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.home');
+        $header = 'Master List';
+        return view('admin.home', compact('header'));
     }
 
     /**

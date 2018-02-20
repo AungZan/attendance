@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\ValidationException;
 use Log;
 use Auth;
+use App\Admin;
 
 class AdminLoginController extends Controller
 {
@@ -15,11 +17,22 @@ class AdminLoginController extends Controller
         $this->middleware('guest:admin');
     }
 
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function showLoginForm()
     {
         return view('auth.admin-login');
     }
 
+    /**
+     * Handle a login request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login(Request $request)
     {
         // Validate the login request
@@ -41,7 +54,30 @@ class AdminLoginController extends Controller
             return redirect(route('admin.home'));
         }
 
-        // if fail, redirect back to the login page.
-        return redirect()->back()->withInput($request->only('email'));
+        // if fail, redirect back to the login page with error message.
+        if (empty(Admin::where('email', $request->email)->where('deleted', 0)->exists())) {
+            return $this->loginFailResponse('email', $request);
+        }
+
+        if (empty(Admin::where('email', $request->email)->where('password', bcrypt($request->password))->where('deleted', 0)->exists()))
+        {
+            return $this->loginFailResponse('password', $request);
+        }
+    }
+
+    /**
+     * Redirect back to the login page with error message.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function loginFailResponse($type, Request $request)
+    {
+        return redirect()
+            ->back()
+            ->withInput($request->only('email'))
+            ->withErrors([
+                $type => trans('auth.failed'),
+            ]);
     }
 }

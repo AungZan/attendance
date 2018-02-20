@@ -1,23 +1,24 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card card-default">
-                <div class="card-header">Admin Dashboard</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <div class="table-responsive">
+        <table class="table table-hover" id="productTable">
+            <thead>
+                <tr>
+                    <th>TEsting</th>
+                    <th>TEsting</th>
+                    <th>TEsting</th>
+                </tr>
+            </thead>
 
-                    You are logged in!
-                </div>
-            </div>
-        </div>
+            <tbody>
+                <tr>
+                    <td>TEsting</td>
+                    <td>TEsting</td>
+                    <td>TEsting</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-</div>
 @endsection
