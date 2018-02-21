@@ -18,14 +18,13 @@ Route::get('/', function () {
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login.form');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login');
-    Route::get('/', 'Admin\AdminController@index')->name('admin.home');
+    Route::get('/', 'Admin\AdminController@index')->name('masters.index');
+
+    // CRUD route for master
+    Route::resource('/masters', 'Admin\AdminController');
+
+    // CRUD route for company
     Route::resource('/companies', 'Admin\CompanyController');
-    // Route::get('/company', 'Admin\CompanyController@index')->name('company.home');
-    // Route::get('/company/create', 'Admin\CompanyController@create')->name('company.create');
-    // Route::post('/company/create', 'Admin\CompanyController@create')->name('company.create');
-    // Route::get('/company/create', 'Admin\CompanyController@create')->name('company.create');
-    // Route::post('/company/create', 'Admin\CompanyController@create')->name('company.create');
-    // Route::post('/company/create', 'Admin\CompanyController@create')->name('company.create');
 });
 
 Route::prefix('master')->group(function() {

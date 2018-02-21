@@ -41,7 +41,7 @@
 
         <div class="form-group text-center">
             <a href="{{ route('companies.index') }}" class="btn btn-secondary">Back</a>
-            <button type="submit" class="btn btn-success">Save</button>
+            <button type="submit" class="btn btn-success">Update</button>
         </div>
     </form>
 @endsection

@@ -20,7 +20,7 @@
                         <td>{{ $company['name'] }}</td>
                         <td>
                             <a href="{{ route('companies.edit', $company['id']) }}" class="btn btn-primary">Edit</a>
-                            <a href="{{ route('companies.destroy', $company['id']) }}" id="delete" class="btn btn-danger">Delete</a>
+                            <a href="{{ route('companies.destroy', $company['id']) }}" id="deleteCom" class="btn btn-danger">Delete</a>
 
                             <form method="POST" action="{{ route('companies.destroy', $company['id']) }}" id="company" style="display: none;">
                                 @csrf

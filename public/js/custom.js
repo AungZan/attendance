@@ -9,10 +9,10 @@ $(document).ready(function() {
 console.log($(this).attr('data-sa-value'));
     });
 
-    // company delete form submit
-    $('#delete').on('click', function(e) {
-        e.preventDefault();
-        $('#company').submit();
+    // destroy form submit
+    $('.btn-danger').on('click', function(event) {
+        event.preventDefault();
+        $(this).next().submit();
     });
 
     // admin logout form submit
