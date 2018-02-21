@@ -116,7 +116,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage. (soft delete)
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -138,7 +138,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Validate Requests.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  $type (to check create or update method)

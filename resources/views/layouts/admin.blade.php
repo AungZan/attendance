@@ -45,7 +45,7 @@
             </div>
 
             <div class="logo hidden-sm-down">
-                <h1><a href="{{ route('admin.home') }}">Attendance System</a></h1>
+                <h1><a href="{{ route('masters.index') }}">Attendance System</a></h1>
             </div>
 
             <form class="search col-md-3">
@@ -98,7 +98,7 @@
                 </div>
 
                 <ul class="navigation">
-                    <li class="navigation__active"><a href="{{ route('admin.home') }}"><i class="zmdi zmdi-account"></i>Masters</a></li>
+                    <li class="navigation__active"><a href="{{ route('masters.index') }}"><i class="zmdi zmdi-account"></i>Masters</a></li>
                 </ul>
                 <ul class="navigation">
                     <li class="navigation__active"><a href="{{ route('companies.index') }}"><i class="zmdi zmdi-globe"></i>Companies</a></li>

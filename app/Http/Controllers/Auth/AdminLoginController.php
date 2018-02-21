@@ -51,7 +51,7 @@ class AdminLoginController extends Controller
          * if successful, redirect to the intended page.
          */
         if (Auth::guard('admin')->attempt($credentials, $request->filled('remember'))) {
-            return redirect(route('admin.home'));
+            return redirect(route('masters.index'));
         }
 
         // if fail, redirect back to the login page with error message.
