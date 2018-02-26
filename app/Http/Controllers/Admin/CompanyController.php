@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Company;
 use Validator;
 use Log;
+use DB;
 
 class CompanyController extends Controller
 {
@@ -51,9 +52,14 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        DB::connection()->enableQueryLog();
         $validation = $this->validation($request, 'create');
 
         if ($validation->fails()) {
+            // log query (should not use this with tons of input data. Memory size will be exhausted.)
+            $queries = DB::getQueryLog();
+            Log::info($queries);
+
             return redirect()
                 ->back()
                 ->withErrors($validation)
@@ -98,11 +104,16 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        DB::connection()->enableQueryLog();
         $company = Company::find($id);
 
         $validation = $this->validation($request, 'edit');
 
         if ($validation->fails()) {
+            // log query (should not use this with tons of input data. Memory size will be exhausted.)
+            $queries = DB::getQueryLog();
+            Log::info($queries);
+
             return redirect()
                 ->back()
                 ->withErrors($validation)
@@ -149,14 +160,14 @@ class CompanyController extends Controller
         switch ($type) {
             case 'create':
                 return $validator = Validator::Make($request->all(), [
-                    'company_name' => 'required|unique:companies,company_name',
+                    'company_name' => 'required|unique:companies,company_name,,id,deleted,0',
                     'name' => 'required',
                 ]);
                 break;
 
             case 'edit':
                 return $validator = Validator::Make($request->all(), [
-                    'company_name' => 'required|unique:companies,company_name,' . $request->get('id'),
+                    'company_name' => 'required|unique:companies,company_name,' . $request->get('id') . ',id,deleted,0',
                     'name' => 'required',
                 ]);
                 break;
