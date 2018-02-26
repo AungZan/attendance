@@ -13,6 +13,8 @@
     <!-- Vendor styles -->
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/animate.css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/bower_components/fullcalendar/dist/fullcalendar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/bower_components/sweetalert2/dist/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css') }}">
 
     <!-- App styles -->
@@ -27,6 +29,11 @@
     <script src="{{ asset('vendors/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
     <script src="{{ asset('vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js') }}"></script>
+
+    <!-- Vendors: Calendar -->
+    <script src="{{ asset('vendors/bower_components/moment/min/moment.min.js') }}"></script>
+    <script src="{{ asset('vendors/bower_components/fullcalendar/dist/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('vendors/bower_components/autosize/dist/autosize.min.js') }}"></script>
 
     <!-- Vendors: Data tables -->
     <script src="{{ asset('vendors/bower_components/datatables.net/js/jquery.dataTables.js') }}"></script>
@@ -48,13 +55,6 @@
             <div class="logo hidden-sm-down">
                 <h1><a href="{{ route('masters.index') }}">Attendance System</a></h1>
             </div>
-
-            <form class="search col-md-3">
-                <div class="search__inner">
-                    <input type="text" class="search__text" placeholder="Search">
-                    <i class="zmdi zmdi-search search__helper" data-sa-action="search-close"></i>
-                </div>
-            </form>
 
             <ul class="top-nav">
 
@@ -99,10 +99,7 @@
                 </div>
 
                 <ul class="navigation">
-                    <li class="navigation__active"><a href="{{ route('masters.index') }}"><i class="zmdi zmdi-account"></i>Masters</a></li>
-                </ul>
-                <ul class="navigation">
-                    <li class="navigation__active"><a href="{{ route('companies.index') }}"><i class="zmdi zmdi-globe"></i>Companies</a></li>
+                    <li class="navigation__active"><a href="{{ route('masters.index') }}"><i class="zmdi zmdi-calendar"></i>Check my attendance</a></li>
                 </ul>
             </div>
         </aside>
@@ -148,14 +145,8 @@
                 </div>
                 @endif
 
-                <header class="content__title">
-                    <h1>{{ $header }}</h1>
-                </header>
-
-                <div class="card">
-                    <div class="card-body">
-                        @yield('content')
-                    </div>
+                <div class="content__inner">
+                    @yield('content')
                 </div>
             </div>
         </section>

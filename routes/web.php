@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// admin site routes
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login.form');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login');
@@ -27,6 +28,7 @@ Route::prefix('admin')->group(function() {
     Route::resource('/companies', 'Admin\CompanyController');
 });
 
+// master site routes
 Route::prefix('master')->group(function() {
     Route::get('/login', function() {
         return view('auth.master-login');
@@ -37,7 +39,7 @@ Route::prefix('master')->group(function() {
     });
 });
 
-
+// user site routes
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
