@@ -24,10 +24,30 @@ console.log($(this).attr('data-sa-value'));
         $('#admin').submit();
     });
 
+    // user side attendance form submit
+    $('#update').on('click', function(e) {
+        e.preventDefault();
+        var id = $(this).parents('.modal-content').children().find('.edit-event__id').val();
+        $('#attendanceUpdate').attr('action', '/home/' + id);
+        $('#attendanceUpdate').submit();
+    });
+
     // Calendar Script
     var date = new Date();
     var m = date.getMonth();
     var y = date.getFullYear();
+
+    //Calendar Next
+    $('body').on('click', '.actions__calender-next', function (e) {
+        e.preventDefault();
+        $('.calendar').fullCalendar('next');
+    });
+
+    //Calendar Prev
+    $('body').on('click', '.actions__calender-prev', function (e) {
+        e.preventDefault();
+        $('.calendar').fullCalendar('prev');
+    });
 
     $('.calendar').fullCalendar({
         header: {
@@ -43,16 +63,7 @@ console.log($(this).attr('data-sa-value'));
         selectable: true,
         selectHelper: true,
         editable: true,
-        events: [
-            {
-                id: 2,
-                title: 'IN : 8:00 \n OUT : 17:00',
-                title1: '8:00',
-                title2: '17:00',
-                start: new Date(y, m, 10),
-                allDay: true,
-            },
-        ],
+        events: data,
 
         viewRender: function (view) {
             var calendarDate = $('.calendar').fullCalendar('getDate');
@@ -68,13 +79,17 @@ console.log($(this).attr('data-sa-value'));
         eventClick: function (event, element) {
             $('#edit-event').modal('show');
             $('.edit-event__id').val(event.id);
-            $('.edit-event__title1').val(event.title1);
-            $('.edit-event__title2').val(event.title2);
-            // $('.edit-event__description').val(event.description);
+            $('.edit-event__inHours').val(event.inHours);
+            $('.edit-event__inMinutes').val(event.inMinutes);
+
+            if ((event.outHours).length) {
+                $('.edit-event__outHours').val(event.outHours);
+                $('.edit-event__outMinutes').val(event.outMinutes);
+            }
         }
     });
 
-    //Update/Delete an Event
+    //Update an Event
     $('body').on('click', '[data-calendar]', function(){
         var calendarAction = $(this).data('calendar');
         var currentId = $('.edit-event__id').val();
@@ -97,19 +112,6 @@ console.log($(this).attr('data-sa-value'));
             }
         }
     });
-
-    //Calendar Next
-    $('body').on('click', '.actions__calender-next', function (e) {
-        e.preventDefault();
-        $('.calendar').fullCalendar('next');
-    });
-
-    //Calendar Prev
-    $('body').on('click', '.actions__calender-prev', function (e) {
-        e.preventDefault();
-        $('.calendar').fullCalendar('prev');
-    });
-
 });
 
 // show uploaded image show form.

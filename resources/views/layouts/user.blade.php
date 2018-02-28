@@ -44,7 +44,7 @@
     <script src="{{ asset('js/custom.js') }}"></script>
 </head>
 
-<body data-sa-theme="3">
+<body data-sa-theme="4">
     <main class="main">
 
         <header class="header">

@@ -42,4 +42,4 @@ Route::prefix('master')->group(function() {
 // user site routes
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('/home', 'HomeController', ['only' => ['index', 'update']]);
