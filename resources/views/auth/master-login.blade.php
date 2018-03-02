@@ -8,8 +8,22 @@
                 <div class="card-header">Master Login</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('master.login') }}">
                         @csrf
+
+                        <div class="form-group row">
+                            <label for="company_name" class="col-sm-4 col-form-label text-md-right">Company ID</label>
+
+                            <div class="col-md-6">
+                                <input id="company_name" type="text" class="form-control{{ $errors->has('company_name') ? ' is-invalid' : '' }}" name="company_name" value="{{ old('company_name') }}" required autofocus>
+
+                                @if ($errors->has('company_name'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('company_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="email" class="col-sm-4 col-form-label text-md-right">E-Mail Address</label>

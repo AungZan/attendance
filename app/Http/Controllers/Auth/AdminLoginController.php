@@ -56,11 +56,13 @@ class AdminLoginController extends Controller
 
         // if fail, redirect back to the login page with error message.
         if (empty(Admin::where('email', $request->email)->where('deleted', 0)->exists())) {
+            // mail wrong
             return $this->loginFailResponse('email', $request);
         }
 
         if (empty(Admin::where('email', $request->email)->where('password', bcrypt($request->password))->where('deleted', 0)->exists()))
         {
+            // password wrong.
             return $this->loginFailResponse('password', $request);
         }
     }

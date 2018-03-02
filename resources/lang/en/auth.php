@@ -14,7 +14,8 @@ return [
     */
 
     // 'failed' => 'These credentials do not match our records.',
-    'failed' => 'You have entered an invalid username or password.',
+    'failed' => 'You have entered an invalid Username or Password.',
+    'master_failed' => 'You have entered an invalid Company ID or E-Mail Address or Password.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];

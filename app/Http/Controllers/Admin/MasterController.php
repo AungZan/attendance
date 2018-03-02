@@ -9,7 +9,7 @@ use App\Master;
 use App\Company;
 use Log;
 
-class AdminController extends Controller
+class MasterController extends Controller
 {
     /**
      * Create a new controller instance.
