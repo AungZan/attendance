@@ -19,10 +19,10 @@ Route::get('/', function () {
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login.form');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login');
-    Route::get('/', 'Admin\AdminController@index')->name('masters.index');
+    Route::get('/', 'Admin\MasterController@index')->name('masters.index');
 
     // CRUD route for master
-    Route::resource('/masters', 'Admin\AdminController');
+    Route::resource('/masters', 'Admin\MasterController');
 
     // CRUD route for company
     Route::resource('/companies', 'Admin\CompanyController');
@@ -30,13 +30,12 @@ Route::prefix('admin')->group(function() {
 
 // master site routes
 Route::prefix('master')->group(function() {
-    Route::get('/login', function() {
-        return view('auth.master-login');
-    });
+    Route::get('/login', 'Auth\MasterLoginController@showLoginForm')->name('master.login.form');
+    Route::post('/login', 'Auth\MasterLoginController@login')->name('master.login');
+    Route::get('/', 'Master\UserController@index')->name('users.index');
 
-    Route::get('/', function() {
-        return view('master-welcome');
-    });
+    // CRUD route for user
+    Route::resource('/users', 'Master\UserController');
 });
 
 // user site routes
