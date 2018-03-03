@@ -161,7 +161,7 @@ class MasterController extends Controller
                 return $validator = Validator::Make($request->all(), [
                     'company_id' => 'required',
                     'name' => 'required',
-                    'email' => 'required|email|unique:masters,email',
+                    'email' => 'required|email|unique:masters,email,,id,deleted,0',
                     'password' => 'required|min:6',
                 ]);
                 break;
@@ -170,7 +170,7 @@ class MasterController extends Controller
                 return $validator = Validator::Make($request->all(), [
                     'company_id' => 'required',
                     'name' => 'required',
-                    'email' => 'required|email|unique:masters,email,' . $request->get('id'),
+                    'email' => 'required|email|unique:masters,email,' . $request->get('id') . ',id,deleted,0',
                     'password' => 'nullable|min:6',
                 ]);
                 break;

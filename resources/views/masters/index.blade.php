@@ -23,7 +23,7 @@
                             <a href="{{ route('masters.edit', $master['id']) }}" class="btn btn-primary">Edit</a>
                             <a href="{{ route('masters.destroy', $master['id']) }}" class="btn btn-danger">Delete</a>
 
-                            <form method="POST" action="{{ route('masters.destroy', $master['id']) }}" id="master">
+                            <form method="POST" action="{{ route('masters.destroy', $master['id']) }}">
                                 @csrf
                                 <input type="hidden" name="_method" value="DELETE">
                             </form>

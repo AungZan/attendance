@@ -52,14 +52,15 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        DB::connection()->enableQueryLog();
+        /**
+         * log query
+         * DB::connection()->enableQueryLog();
+         * $queries = DB::getQueryLog();
+         * Log::info($queries);
+         */
         $validation = $this->validation($request, 'create');
 
         if ($validation->fails()) {
-            // log query (should not use this with tons of input data. Memory size will be exhausted.)
-            $queries = DB::getQueryLog();
-            Log::info($queries);
-
             return redirect()
                 ->back()
                 ->withErrors($validation)
@@ -104,16 +105,17 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::connection()->enableQueryLog();
+        /**
+         * log query
+         * DB::connection()->enableQueryLog();
+         * $queries = DB::getQueryLog();
+         * Log::info($queries);
+         */
         $company = Company::find($id);
 
         $validation = $this->validation($request, 'edit');
 
         if ($validation->fails()) {
-            // log query (should not use this with tons of input data. Memory size will be exhausted.)
-            $queries = DB::getQueryLog();
-            Log::info($queries);
-
             return redirect()
                 ->back()
                 ->withErrors($validation)

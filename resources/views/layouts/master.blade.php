@@ -101,9 +101,6 @@
                 <ul class="navigation">
                     <li class="navigation__active"><a href="{{ route('users.index') }}"><i class="zmdi zmdi-account"></i>Staffs</a></li>
                 </ul>
-                <ul class="navigation">
-                    <li class="navigation__active"><a href="{{ route('companies.index') }}"><i class="zmdi zmdi-globe"></i>Companies</a></li>
-                </ul>
             </div>
         </aside>
 

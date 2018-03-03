@@ -115,7 +115,7 @@ console.log($(this).attr('data-sa-value'));
 });
 
 // show uploaded image show form.
-function readURL(input) {
+function readImageUpload(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 

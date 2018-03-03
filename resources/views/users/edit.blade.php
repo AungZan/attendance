@@ -1,35 +1,17 @@
-@extends('layouts.admin')
+@extends('layouts.master')
 
 @section('content')
-    <form method="POST" action="{{ route('masters.update', $master['id']) }}" class="form-horizontal">
+    <form method="POST" action="{{ route('users.update', $user['id']) }}" class="form-horizontal" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="_method" value="PATCH">
-        <input type="hidden" name="id" value="{{ $master['id'] }}">
-
-        <div class="row">
-            <label class="col-md-2 col-form-label">Company Name</label>
-
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <div class="select">
-                        <select class="form-control" name="company_id">
-                            @foreach($companies as $company => $key)
-                                <option value="{{ $key }}" {{ ($key == $master['company_id'])? 'selected': '' }}>
-                                    {{ $company }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <input type="hidden" name="id" value="{{ $user['id'] }}">
 
         <div class="row">
             <label class="col-md-2 col-form-label">Name</label>
 
             <div class="col-md-5">
                 <div class="form-group">
-                    <input type="text" name="name" class="form-control" value="{{ $master['name'] }}" placeholder="e.g John Smith">
+                    <input type="text" name="name" class="form-control" value="{{ $user['name'] }}" placeholder="e.g David">
                     <i class="form-group__bar"></i>
                 </div>
 
@@ -46,13 +28,41 @@
 
             <div class="col-md-5">
                 <div class="form-group">
-                    <input type="email" name="email" class="form-control" value="{{ $master['email'] }}" placeholder="e.g abc@mail.com">
+                    <input type="email" name="email" class="form-control" value="{{ $user['email'] }}" placeholder="e.g abc@mail.com">
                     <i class="form-group__bar"></i>
                 </div>
 
                 @if($errors->has('email'))
                     <p class="validation-fails">
                         <strong>{{ $errors->first('email') }}</strong>
+                    </p>
+                @endif
+            </div>
+        </div>
+
+        <div class="row">
+            <label class="col-md-2 col-form-label">Profile Picture</label>
+
+            @php
+                if(empty($user['image'])) {
+                    $imageClass = 'not-shown';
+                } else {
+                    $imageClass = 'img-frame';
+                }
+            @endphp
+
+            <div class="col-md-5">
+                <div class="{{ $imageClass }}" id="frame">
+                    <img src="/img/staff/{{ $user['image'] }}" class="img">
+                </div>
+
+                <div class="form-group">
+                    <input type="file" name="image" class="form-control imageUpload" accept="image/*" onchange="readImageUpload(this);">
+                </div>
+
+                @if($errors->has('image'))
+                    <p class="validation-fails">
+                        <strong>{{ $errors->first('image') }}</strong>
                     </p>
                 @endif
             </div>
@@ -76,7 +86,7 @@
         </div>
 
         <div class="form-group text-center">
-            <a href="{{ route('masters.index') }}" class="btn btn-secondary">Back</a>
+            <a href="{{ route('users.index') }}" class="btn btn-secondary">Back</a>
             <button type="submit" class="btn btn-success">Update</button>
         </div>
     </form>

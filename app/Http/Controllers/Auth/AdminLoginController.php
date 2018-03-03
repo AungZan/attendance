@@ -37,13 +37,13 @@ class AdminLoginController extends Controller
     {
         // Validate the login request
         $this->validate($request, [
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required|min:6'
         ]);
 
         // save $request data in credentials array.
         $credentials = array(
-            'email' => $request->email,
+            'username' => $request->username,
             'password' => $request->password,
         );
 
@@ -55,9 +55,9 @@ class AdminLoginController extends Controller
         }
 
         // if fail, redirect back to the login page with error message.
-        if (empty(Admin::where('email', $request->email)->where('deleted', 0)->exists())) {
+        if (empty(Admin::where('username', $request->username)->where('deleted', 0)->exists())) {
             // mail wrong
-            return $this->loginFailResponse('email', $request);
+            return $this->loginFailResponse('username', $request);
         }
 
         if (empty(Admin::where('email', $request->email)->where('password', bcrypt($request->password))->where('deleted', 0)->exists()))
@@ -77,7 +77,7 @@ class AdminLoginController extends Controller
     {
         return redirect()
             ->back()
-            ->withInput($request->only('email'))
+            ->withInput($request->only('username'))
             ->withErrors([
                 $type => trans('auth.failed'),
             ]);
