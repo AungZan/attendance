@@ -36,6 +36,9 @@ Route::prefix('master')->group(function() {
 
     // CRUD route for user
     Route::resource('/users', 'Master\UserController');
+
+    // CRUD route for attendance
+    Route::resource('/attendances', 'Master\AttendanceController');
 });
 
 // user site routes

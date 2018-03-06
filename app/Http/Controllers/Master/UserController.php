@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $masterInfo = Master::find(Auth::id())->first();
+        $masterInfo = Master::find(Auth::id());
         $companyID = $masterInfo['company_id'];
 
         $users = User::where('deleted', 0)->where('company_id', $companyID)->get();
@@ -63,7 +63,7 @@ class UserController extends Controller
         }
 
         $masterID = Auth::id();
-        $masterInfo = Master::find($masterID)->first();
+        $masterInfo = Master::find($masterID);
 
         $data = $request->all();
         $data['company_id'] = $masterInfo->company_id;
