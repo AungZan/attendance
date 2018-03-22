@@ -39,6 +39,8 @@ Route::prefix('master')->group(function() {
 
     // CRUD route for attendance
     Route::resource('/attendances', 'Master\AttendanceController');
+
+    Route::resource('/settings', 'Master\SettingController', ['only' => ['index', 'update']]);
 });
 
 // user site routes

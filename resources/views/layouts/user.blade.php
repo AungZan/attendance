@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/fullcalendar/dist/fullcalendar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/sweetalert2/dist/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/bower_components/select2/dist/css/select2.min.css') }}">
 
     <!-- App styles -->
     <link rel="stylesheet" href="{{ asset('css/app.min.css') }}" type="text/css">
@@ -29,6 +30,7 @@
     <script src="{{ asset('vendors/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
     <script src="{{ asset('vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js') }}"></script>
+    <script src="{{ asset('vendors/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
 
     <!-- Vendors: Calendar -->
     <script src="{{ asset('vendors/bower_components/moment/min/moment.min.js') }}"></script>
@@ -42,9 +44,10 @@
     <!-- App functions and actions -->
     <script src="{{ asset('js/app.min.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/calendar.js') }}"></script>
 </head>
 
-<body data-sa-theme="4">
+<body data-sa-theme="3">
     <main class="main">
 
         <header class="header">
@@ -90,10 +93,10 @@
 
                 <div class="user">
                     <div class="user__info" data-toggle="dropdown">
-                        <img class="user__img" src=" " alt="">
+                        <img class="user__img" src="/img/staff/{{ Auth::user()->image }}" alt="">
                         <div>
-                            <div class="user__name">Malinda Hollaway</div>
-                            <div class="user__email">malinda-h@gmail.com</div>
+                            <div class="user__name">{{ Auth::user()->name }}</div>
+                            <div class="user__email">{{ Auth::user()->email }}</div>
                         </div>
                     </div>
                 </div>

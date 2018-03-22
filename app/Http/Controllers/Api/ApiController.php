@@ -17,8 +17,8 @@ class ApiController extends Controller
 
     public function list()
     {
-        $companies = Company::all();
-Log::info($companies);
+        $companies = Company::where('deleted', 0)->get();
+        return $companies;
 
     }
 

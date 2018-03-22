@@ -29,19 +29,8 @@ class MasterLoginController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        $companyID = Company::where('deleted', 0)->where('company_name', $request->company_name)->select('id')->first();
-
-        /* fail attempts (type 1).
-         * company id does not exist.
-        */
-        if (empty($companyID)) {
-            // mail wrong
-            return $this->loginFailResponse('company_name', $request);
-        }
-
         // save requests to the credential array.
         $credential = array(
-            'company_id' => $companyID->id,
             'email' => $request->email,
             'password' => $request->password,
             'deleted' => 0
@@ -57,7 +46,7 @@ class MasterLoginController extends Controller
                 ->route('users.index');
         }
 
-        /* fail attempts (type 2).
+        /* fail attempts.
          * email or password does not match or wrong.
         */
         if (empty(Master::where('email', $request->email)->where('deleted', 0)->exists())) {
