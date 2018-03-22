@@ -4,14 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Log;
-// use App\Attendance;
 
 class Attendance extends Model
 {
     protected $fillable = ['company_id', 'user_id', 'origin_in', 'origin_out', 'in', 'out', 'normal', 'overtime'];
 
     // need to declare this when use coustom accessor.
-    protected $appends = ['title', 'allDay', 'startDate', 'endDate', 'originInTime', 'originOutTime'];
+    protected $appends = ['title', 'allDay', 'start', 'startDate', 'endDate', 'originInTime', 'originOutTime'];
 
     // for relationship
     protected $with = ['user'];
@@ -22,20 +21,20 @@ class Attendance extends Model
     }
 
     /**
-     * Get title (attendance in/out).
+     * Get title (attendance origin_in/origin_out).
      *
      * @return string
      */
     public function getTitleAttribute()
     {
-        $in = date('H:i', strtotime($this->in));
-        $out = '';
+        $origin_in = date('H:i', strtotime($this->origin_in));
+        $origin_out = '';
 
-        if ($this->out != null) {
-            $out = date('H:i', strtotime($this->out));
+        if ($this->origin_out != null) {
+            $origin_out = date('H:i', strtotime($this->origin_out));
         }
 
-        return "IN : {$in} \n OUT: {$out}";
+        return "IN : {$origin_in} \n OUT: {$origin_out}";
     }
 
     /**
@@ -46,6 +45,18 @@ class Attendance extends Model
     public function getAllDayAttribute()
     {
         return "{true}";
+    }
+
+    /**
+     * Get attendance Start Date.
+     *
+     * @return string
+     */
+    public function getStartAttribute()
+    {
+        $start = date('Y-m-d', strtotime($this->origin_in));
+
+        return "{$start}";
     }
 
     /**
@@ -148,24 +159,30 @@ class Attendance extends Model
      *
      * @return array
      */
-    public function calculate($data)
+    public function calculate($data, $setting)
     {
         $result = $data->all();
 
         $originIn = $data['inDate'] . ' ' . $data['origin_in_time'];
+        $result['origin_in'] = $originIn; // real check in
+
         $originInUnix = strtotime($originIn);
-        $result['origin_in'] = $originIn;
-        $result['in'] = $result['origin_in'];
+
+        $inUnix = ceil($originInUnix / ($setting['round_time'] * 60)) * $setting['round_time'] * 60;
+        $result['in'] = date('Y-m-d H:i:s', $inUnix); // rounded check in
 
         if (!empty($data['outDate'])) {
             $originOut = $data['outDate'] . ' ' . $data['origin_out_time'];
+            $result['origin_out'] = $originOut; // real check out
+
             $originOutUnix = strtotime($originOut);
-            $result['origin_out'] = $originOut;
-            $result['out'] = $result['origin_out'];
+
+            $outUnix = floor($originOutUnix / ($setting['round_time'] * 60)) * $setting['round_time'] * 60;
+            $result['out'] = date('Y-m-d H:i:s', $outUnix); // rounded check out
         }
 
-        $result['normal'] = null;
-        $result['overtime'] = null;
+        $result['normal'] = 0;
+        $result['overtime'] = 0;
 
         return $result;
     }

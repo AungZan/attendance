@@ -16,35 +16,36 @@
     <!-- Edit event -->
     <div class="modal fade" id="edit-event" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
-            <div class="modal-content bg-color">
+            <div class="modal-content">
                 <div class="modal-body">
                     <form class="edit-event__form" method="POST" id="attendanceUpdate">
                         @csrf
 
                         <input name="_method" type="hidden" value="PATCH">
+
+                        <input type="hidden" class="edit-event__id" name="id">
+                        <input type="hidden" class="edit-event__userId" name="user_id">
+
                         <div class="row">
                             <label class="col-md-3 col-form-label">IN</label>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <div class="select">
-                                        <select class="form-control edit-event__inHours" name="inHours">
-                                            @foreach($hours as $keyH => $hour)
-                                                <option {{ $keyH }}> {{ $hour }} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    {{
+                                        Form::date('inDate', '', [
+                                            'class' => 'form-control edit-event__startDate',
+                                            'name' => 'inDate'
+                                        ])
+                                    }}
                                 </div>
                             </div>
-                            :
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <div class="select">
-                                        <select class="form-control edit-event__inMinutes" name="inMinutes">
-                                            @foreach($minutes as $keyM => $minute)
-                                                <option {{ $keyM }}> {{ $minute }} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    {{
+                                        Form::time('origin_in_time', '', [
+                                            'class' => 'form-control edit-event__originInTime',
+                                            'name' => 'origin_in_time'
+                                        ])
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -53,35 +54,49 @@
                             <label class="col-md-3 col-form-label">OUT</label>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <div class="select">
-                                        <select class="form-control edit-event__outHours" name="outHours">
-                                            @foreach($hours as $keyH => $hour)
-                                                <option {{ $keyH }}> {{ $hour }} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    {{
+                                        Form::date('outDate', '', [
+                                            'class' => 'form-control edit-event__endDate',
+                                            'name' => 'outDate'
+                                        ])
+                                    }}
                                 </div>
                             </div>
-                            :
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <div class="select">
-                                        <select class="form-control edit-event__outMinutes" name="outMinutes">
-                                            @foreach($minutes as $keyM => $minute)
-                                                <option {{ $keyM }}> {{ $minute }} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    {{
+                                        Form::time('origin_out_time', '', [
+                                            'class' => 'form-control edit-event__originOutTime',
+                                            'name' => 'origin_out_time'
+                                        ])
+                                    }}
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" class="edit-event__id" name="id">
+
+                        <div class="row">
+                            <label class="col-md-3 col-form-label">ROUND IN</label>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" name="in" class="form-control edit-event__in" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-md-3 col-form-label">ROUND OUT</label>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <input type="text" name="out" class="form-control edit-event__out" disabled>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
 
                 <div class="modal-footer">
-                    <a href="{{ route('home.update', 1) }}" class="btn btn-link" id="update">Update</a>
                     <button class="btn btn-link" data-dismiss="modal">Close</button>
+                    <a href="{{ route('home.update', 1) }}" class="btn btn-link" id="update">Update</a>
                 </div>
             </div>
         </div>

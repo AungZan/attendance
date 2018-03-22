@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/animate.css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css') }}">
+
+    <!-- Vendors: date picker -->
+    <link rel="stylesheet" href="{{ asset('vendors/bower_components/flatpickr/dist/flatpickr.min.css') }}" />
+
+    <!-- Vendors: select2 -->
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/select2/dist/css/select2.min.css') }}">
 
     <!-- App styles -->
@@ -28,6 +33,11 @@
     <script src="{{ asset('vendors/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
     <script src="{{ asset('vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js') }}"></script>
+
+    <!-- Vendors: date picker -->
+    <script src="{{ asset('vendors/bower_components/flatpickr/dist/flatpickr.min.js') }}"></script>
+
+    <!-- Vendors: select2 -->
     <script src="{{ asset('vendors/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
 
     <!-- Vendors: Data tables -->
@@ -94,18 +104,22 @@
                     <div class="user__info" data-toggle="dropdown">
                         <img class="user__img" src=" " alt="">
                         <div>
-                            <div class="user__name">Malinda Hollaway</div>
-                            <div class="user__email">malinda-h@gmail.com</div>
+                            <div class="user__name">{{ Auth::user()->name }}</div>
+                            <div class="user__email">{{ Auth::user()->email }}</div>
                         </div>
                     </div>
                 </div>
+
+                <ul class="navigation">
+                    <li class="navigation__active"><a href="{{ route('attendances.index') }}"><i class="zmdi zmdi-hourglass-outline"></i>Attendances</a></li>
+                </ul>
 
                 <ul class="navigation">
                     <li class="navigation__active"><a href="{{ route('users.index') }}"><i class="zmdi zmdi-accounts"></i>Staffs</a></li>
                 </ul>
 
                 <ul class="navigation">
-                    <li class="navigation__active"><a href="{{ route('attendances.index') }}"><i class="zmdi zmdi-hourglass-outline"></i>Attendances</a></li>
+                    <li class="navigation__active"><a href="{{ route('settings.index') }}"><i class="zmdi zmdi-settings"></i>Setting</a></li>
                 </ul>
             </div>
         </aside>

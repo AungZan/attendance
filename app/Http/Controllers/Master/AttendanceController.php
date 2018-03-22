@@ -4,12 +4,7 @@ namespace App\Http\Controllers\Master;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
-use App\Master;
-use App\Attendance;
-use App\User;
-use Log;
-use Validator;
+use Auth, Validator, App\Master, App\Attendance, App\User, App\Setting, Log;
 
 class AttendanceController extends Controller
 {
@@ -24,9 +19,16 @@ class AttendanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $date = date('Y-m-d');
+
+        $getRequest = $request->all();
+        if (array_key_exists('date', $getRequest)) {
+            $date = $getRequest['date'];
+        } else {
+            $date = date('Y-m-d');
+        }
+
         $masterInfo = Master::find(Auth::id());
         $attendances = Attendance::where('deleted', 0)
                                 ->where('company_id', $masterInfo->company_id)
@@ -35,7 +37,7 @@ class AttendanceController extends Controller
 
         $header = 'Attendances List';
 
-        return view('attendances.index', compact('attendances', 'header'));
+        return view('attendances.index', compact('attendances', 'header', 'date'));
     }
 
     /**
@@ -139,6 +141,9 @@ class AttendanceController extends Controller
                     ->with('error', 'The attenadance cannot be updated.');
         }
 
+        $masterInfo = Master::find(Auth::id());
+        $setting = Setting::where('company_id', $masterInfo->company_id)->get()->first()->toArray();
+
         $attendanceObj = new Attendance();
         $validationError = $attendanceObj->validation($request);
 
@@ -151,7 +156,7 @@ class AttendanceController extends Controller
         }
 
         $attendance = Attendance::find($id);
-        $result = $attendanceObj->calculate($request);
+        $result = $attendanceObj->calculate($request, $setting);
 
         $attendance->update($result);
 
