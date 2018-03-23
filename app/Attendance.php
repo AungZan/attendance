@@ -161,21 +161,27 @@ class Attendance extends Model
      */
     public function calculate($data, $setting)
     {
-        $result = $data->all();
 
-        $originIn = $data['inDate'] . ' ' . $data['origin_in_time'];
-        $result['origin_in'] = $originIn; // real check in
+        $result = $data;
 
-        $originInUnix = strtotime($originIn);
+        if (!array_key_exists('origin_in', $result)) {
+            $originIn = $result['inDate'] . ' ' . $result['origin_in_time'];
+            $result['origin_in'] = $originIn; // real check in
+        }
+
+        $originInUnix = strtotime($result['origin_in']);
 
         $inUnix = ceil($originInUnix / ($setting['round_time'] * 60)) * $setting['round_time'] * 60;
         $result['in'] = date('Y-m-d H:i:s', $inUnix); // rounded check in
 
-        if (!empty($data['outDate'])) {
-            $originOut = $data['outDate'] . ' ' . $data['origin_out_time'];
-            $result['origin_out'] = $originOut; // real check out
+        if (!empty($result['outDate']) || array_key_exists('origin_out', $result)) {
 
-            $originOutUnix = strtotime($originOut);
+            if (!array_key_exists('origin_out', $result)) {
+                $originOut = $data['outDate'] . ' ' . $data['origin_out_time'];
+                $result['origin_out'] = $originOut; // real check out
+            }
+
+            $originOutUnix = strtotime($result['origin_out']);
 
             $outUnix = floor($originOutUnix / ($setting['round_time'] * 60)) * $setting['round_time'] * 60;
             $result['out'] = date('Y-m-d H:i:s', $outUnix); // rounded check out

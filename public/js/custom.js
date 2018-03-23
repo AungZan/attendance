@@ -12,10 +12,22 @@ $(document).ready(function() {
 console.log($(this).attr('data-sa-value'));
     });
 
-    // destroy form submit
+    // attendance changes approve form submit
+    $('#accept').on('click', function(event) {
+        event.preventDefault();
+        $('#acceptForm').submit();
+    });
+
+    // destroy and decline form submit
     $('.btn-danger').on('click', function(event) {
         event.preventDefault();
         $(this).next().submit();
+    });
+
+    // attendance changes approve form submit
+    $('#revoke').on('click', function(event) {
+        event.preventDefault();
+        $('#revokeForm').submit();
     });
 
     // admin logout form submit
@@ -38,7 +50,7 @@ console.log($(this).attr('data-sa-value'));
         width: '100%'
     });
 
-    // date picker for attendance index
+    // date picker for attendance and attendance changes index
     if($('.date-picker')[0]) {
         $('.date-picker').flatpickr({
             enableTime: false,

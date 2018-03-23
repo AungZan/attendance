@@ -115,6 +115,10 @@
                 </ul>
 
                 <ul class="navigation">
+                    <li class="navigation__active"><a href="{{ route('attendance_changes.index') }}"><i class="zmdi zmdi-edit"></i>Attendances Changes</a></li>
+                </ul>
+
+                <ul class="navigation">
                     <li class="navigation__active"><a href="{{ route('users.index') }}"><i class="zmdi zmdi-accounts"></i>Staffs</a></li>
                 </ul>
 

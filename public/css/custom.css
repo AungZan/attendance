@@ -45,5 +45,5 @@
 }
 
 .bg-color {
-    background-color: grey;
+    background-color: grey !important;
 }
