@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('logout');
+        $this->middleware('auth');
     }
 
     /**
@@ -73,14 +73,4 @@ class HomeController extends Controller
                 ->route('home.index')
                 ->with('success', 'The attendance changes has been notified.');
     }
-
-     /**
-     * Logout the user.
-     *
-     */
-     public function logout()
-     {
-        Auth::guard('web')->logout();
-        return redirect('/');
-     }
 }
