@@ -86,8 +86,10 @@ class AttendanceController extends Controller
         }
 
         $masterInfo = Master::find(Auth::id());
+        $setting = Setting::where('company_id', $masterInfo->company_id)->get()->first()->toArray();
 
-        $result = $attendanceObj->calculate($request);
+        $requestArray = $request->toArray();
+        $result = $attendanceObj->calculate($requestArray, $setting);
         $result['company_id'] = $masterInfo->company_id;
 
         Attendance::create($result);

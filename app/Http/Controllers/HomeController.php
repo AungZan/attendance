@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth, App\Attendance, App\Setting;
+use Auth, App\Attendance, App\AttendanceChanges;
 use Log;
 
 class HomeController extends Controller
@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('logout');
     }
 
     /**
@@ -37,7 +37,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Update A Attendance Record
+     * Send attendance changes.
      *
      */
     public function update(Request $request, $id)
@@ -59,15 +59,28 @@ class HomeController extends Controller
                     ->with('error', 'The attendance cannot be updated.');
         }
 
-        // compute attendances
-        $settings = Setting::where('company_id', $attendance->company_id)->get()->first()->toArray();
-        $result = $attendanceObj->calculate($request, $settings);
+        $result = array(
+            'user_id' => $request['user_id'],
+            'attendance_id' => $request['id'],
+            'origin_in' => $request['inDate'] . ' ' . $request['origin_in_time'],
+            'origin_out' => $request['outDate'] . ' ' . $request['origin_out_time'],
+        );
 
-        // save attendances
-        $attendance->update($result);
+        // save attendance changes
+        AttendanceChanges::create($result);
 
         return redirect()
                 ->route('home.index')
-                ->with('success', 'The attendance has been updated.');
+                ->with('success', 'The attendance changes has been notified.');
     }
+
+     /**
+     * Logout the user.
+     *
+     */
+     public function logout()
+     {
+        Auth::guard('web')->logout();
+        return redirect('/');
+     }
 }
