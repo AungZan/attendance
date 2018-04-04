@@ -1,11 +1,11 @@
 $(document).ready(function() {
 
     // data tables
-    $('#productTable').dataTable({
-        sFilter: false,
-        bFilter: false,
-        bLengthChange: false
-    });
+    // $('#productTable').dataTable({
+    //     sFilter: false,
+    //     bFilter: false,
+    //     bLengthChange: false
+    // });
 
     // change theme
     $('#change-theme').on('click', function() {

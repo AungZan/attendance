@@ -18,8 +18,8 @@ Route::get('/', function () {
 // admin site routes
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login.form');
+    Route::get('/', 'Auth\AdminLoginController@showLoginForm')->name('admin.login.form');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login');
-    Route::get('/', 'Admin\MasterController@index')->name('masters.index');
 
     // CRUD route for master
     Route::resource('/masters', 'Admin\MasterController');

@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/animate.css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css') }}">
 
+    <!-- Vendors: select2 -->
+    <link rel="stylesheet" href="{{ asset('vendors/bower_components/select2/dist/css/select2.min.css') }}">
+
     <!-- App styles -->
     <link rel="stylesheet" href="{{ asset('css/app.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}" type="text/css">
@@ -27,6 +30,9 @@
     <script src="{{ asset('vendors/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
     <script src="{{ asset('vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js') }}"></script>
+
+    <!-- Vendors: select2 -->
+    <script src="{{ asset('vendors/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
 
     <!-- Vendors: Data tables -->
     <script src="{{ asset('vendors/bower_components/datatables.net/js/jquery.dataTables.js') }}"></script>
