@@ -26,9 +26,22 @@ class MasterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $masters = Master::where('deleted', 0)->get();
+        $query = Master::select();
+
+        $query->where('deleted', 0);
+
+        if ($request->has('search')) {
+
+            $query->where(function($q) use($request){
+                $q->where('name', 'LIKE', "%{$request['search']}%")
+                    ->orWhere('email', 'LIKE', "%{$request['search']}%");
+            });
+        }
+
+        $masters = $query->paginate(1);
+
         $header = 'Master List';
         return view('masters.index', compact('header', 'masters'));
     }

@@ -36,7 +36,11 @@
 }
 
 .position {
-    margin-top: -3%;
+    margin-top: 2%;
+}
+
+.positionButton {
+    margin-top: 2%;
 }
 
 .validation-fails {
@@ -46,4 +50,10 @@
 
 .bg-color {
     background-color: grey !important;
+}
+
+.search {
+    flex: 1;
+    margin-right: 0% !important;
+    position: relative;
 }
